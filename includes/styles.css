@@ -1,0 +1,61 @@
+
+#create-yes { 
+    color: #21759b; 
+    cursor: pointer;
+    text-align: right;
+    font-weight: bold;
+}
+
+.post-relationship select {
+    width: 100%;
+    margin: 5px 0;
+}
+
+#create-relationship{
+    background: #278ab7;
+    color: #FFF;
+    text-transform: capitalize;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#create-relationship, 
+#rel_post_parent_id {
+    display: none;
+    cursor: pointer;
+}
+
+div.relation {
+    margin: 0;
+    padding: 5px 0;
+    border-bottom: 1px solid #dfdfdf;
+    border-top: 1px solid #FFF;
+}
+
+div.relation:first-of-type {
+    border-top: none;
+}
+
+div.relation:last-of-type {
+    border-bottom: none;
+}
+
+#delete-rel {
+    float:right;
+    cursor: pointer;
+}
+
+#messages {
+    color: #F00;
+}
+
+.rel-title {
+    font-weight: bold;
+    margin: 10px 0 10px 0;
+    font-size: 14px;
+    padding: 5px;
+}
+
+
+
