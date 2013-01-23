@@ -3,9 +3,10 @@ The 1010 Collective Post Relationship Plugin Documentation
 Version: 1.0 ( BETA )
 
 FEATURES INCLUDE::
+
     - Ability to create relationships between post types of any kind.
     
-    - Full Ajax UI allowing.
+    - Full Ajax UI.
 
 
 EXAMPLE USAGE::
