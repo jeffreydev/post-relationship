@@ -21,7 +21,8 @@ class bck_relationships_setup extends bck_relationship {
         * meta box to our cpt block; 
         */
         public function rel_add_custom_box() {
-            //foreach( array('nirec_videos', 'nirec_mentors', 'nirec_topics') as $page ) {
+            //foreach( array() as $page ) {
+            $page = '';
                 add_meta_box( 
                         'Post Relationships',
                         __( 'Create A Post Relationship', 'bckspace' ),
