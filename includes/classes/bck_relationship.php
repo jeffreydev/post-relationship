@@ -5,6 +5,7 @@
  * two way relationship.
  *
  * @author Jeff Clark 1010 Collective
+ * 
  */
 
 class bck_relationship {
@@ -31,7 +32,7 @@ class bck_relationship {
         $relationship_img = RELATIONSHIP_BASE_URL . 'includes/images/one_way_icon.png';
         $delete_img = RELATIONSHIP_BASE_URL . 'includes/images/delete-icon.png';
 
-        $rel_relationship = $wpdb->get_results("SELECT * FROM $rel_post_title_table Where post_parent_id = $parent_id");
+        $rel_relationship = $wpdb->get_results("SELECT * FROM $rel_post_title_table Where post_parent_id = $rel_parent_id");
 
         if (!$rel_relationship) {
 
@@ -82,9 +83,8 @@ class bck_relationship {
             
             $rel = $wpdb->get_results("SELECT * FROM $rel_post_table Where ID = $rows->child_id");
             
-            $last_type;
+            $last_type = null;
             foreach ($rel as $rel) {
-
                 echo '<div class="relation">';
                 if ($last_type != $rel->post_type) {
                     echo '<div class="rel-title">' . $rel->post_type . '</div>';

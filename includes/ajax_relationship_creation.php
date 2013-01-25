@@ -1,6 +1,5 @@
 <?php
 
-
 add_action( 'wp_ajax_ajax_get_post_types', 'rel_get_post_types' );
 
 function rel_get_post_types() {
@@ -80,7 +79,7 @@ function rel_ajax_delete_relationship(){
     $rel_child_id = esc_attr($_POST['delete_selected']);
     
     try {    
-        $wpdb->query( $wpdb->prepare( "DELETE FROM $rel_table WHERE child_id = $rel_child_id AND post_parent_id = $rel_post_parent") );
+        $wpdb->query("DELETE FROM $rel_table WHERE child_id = $rel_child_id AND post_parent_id = $rel_post_parent");
         $query_relationships = new bck_relationship();
         $query_relationships->rel_get_relationship_id($rel_post_parent);
     } catch(Exception $e) {
