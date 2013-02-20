@@ -12,7 +12,7 @@ class bck_relationship {
    
     
     public function __construct() {
-        //add_action('publish_nirec_videos', array($this, 'rel_create_relationship'));
+        add_shortcode( 'get_relationship', array( $this, 'jdev_get_related_posts' ) );
     }
     
     
@@ -32,24 +32,17 @@ class bck_relationship {
         $relationship_img = RELATIONSHIP_BASE_URL . 'includes/images/one_way_icon.png';
         $delete_img = RELATIONSHIP_BASE_URL . 'includes/images/delete-icon.png';
 
-        $rel_relationship = $wpdb->get_results("SELECT * FROM $rel_post_title_table Where post_parent_id = $rel_parent_id");
+        $wpdb->insert($rel_table, array(
+            'relationship_type' => $rel_type,
+            'post_parent_id' => $rel_parent_id,
+            'child_id' => $rel_child_id,
+            'post_type' => $rel_post_type
+        ));
 
-        if (!$rel_relationship) {
+        $this->rel_get_relationship_id($rel_parent_id);
 
-            try {
-                $wpdb->insert($rel_table, array(
-                    'relationship_type' => $rel_type,
-                    'post_parent_id' => $rel_parent_id,
-                    'child_id' => $rel_child_id,
-                    'post_type' => $rel_post_type
-                ));
 
-                $this->rel_get_relationship_id($rel_parent_id);
-
-            } catch (Exception $e) {
-                echo 'relationship creation failed';
-            }
-        } 
+        
     }
     
     
@@ -77,18 +70,19 @@ class bck_relationship {
         $delete_img = RELATIONSHIP_BASE_URL . 'includes/images/delete-icon.png';
         
         $rel_id = $rel_id;
+        $last_type = null;
         
         $myrows = $wpdb->get_results( "SELECT * FROM $rel_table WHERE post_parent_id = $rel_id order by post_type" );
+        
         foreach($myrows as $rows){
             
             $rel = $wpdb->get_results("SELECT * FROM $rel_post_table Where ID = $rows->child_id");
             
-            $last_type = null;
+            
             foreach ($rel as $rel) {
                 echo '<div class="relation">';
                 if ($last_type != $rel->post_type) {
-                    echo '<div class="rel-title">' . $rel->post_type . '</div>';
-                    $last_type = $rel->post_type;
+                    echo '<div class="rel-title">' . $rel->post_type . '</div>';                 
                 }
                 echo '<img src="' . $relationship_img . '" />';
                 echo $rel->post_title;
@@ -96,10 +90,81 @@ class bck_relationship {
                 echo '<img src="' . $delete_img . '">';
                 echo '</span>';
                 echo '</div>';
+
+                $last_type = $rel->post_type;
             }
         }
        
         
     }
+    
+    
+    
+    
+    /*
+     * Get post related to current
+     * post by.
+     * 
+     * @filter type bck_relationship
+     * @param type $post_type
+     */
+    public function jdev_get_related_posts($atts, $content = null) {
+
+        global $post;
+        
+        ob_start();
+        
+        extract(shortcode_atts(array(
+                    'post_type' => 'post_type',
+                        ), $atts));
+        
+        // post type for query
+        $rel_post_type = $post_type;
+ 
+        //gets back post ides associated with the post type selected
+        $rel = rel_get_post_id($post->ID, $rel_post_type);
+
+        // If nothing is returned, return
+        if (!$rel)
+            return;
+        
+        // set html = nothing
+        $html = '';
+        
+        // Our loop args
+        $args = array(
+            'post_type' => $rel_post_type,
+            'post__in' => $rel,
+            'showposts' => -1
+        );
+
+        $loop = new WP_Query($args);
+        while ($loop->have_posts()) : $loop->the_post();
+            
+            // If there is a filter fun the filter
+            // If not filter then default is link and title
+            if (has_filter('post_relationship')) {
+                $html .= apply_filters('post_relationship', $html);
+            } else {              
+                $html .= '<div>';
+                $html .= '<a href="'.get_permalink().'">' . get_the_title() . '</a>';
+                $html .= '</div>';
+            }
+            
+        endwhile;
+        
+        // Reset the query
+        wp_reset_query();
+        
+        // Clean our object
+        $output = ob_get_clean();
+        
+        return $html . $output;
+        
+        
+    }
 
 }
+
+// initialize for shortcode
+new bck_relationship();

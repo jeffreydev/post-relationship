@@ -10,7 +10,7 @@ class bck_relationships_setup extends bck_relationship {
 
         public function __construct(){
             add_action( 'add_meta_boxes', array($this, 'rel_add_custom_box' ));
-            //add_action( 'save_post', array($this, 'rel_save_post_relationship' ));
+            //   add_action( 'save_post', array($this, 'rel_save_post_relationship' ));
         }
 
 
@@ -47,7 +47,7 @@ class bck_relationships_setup extends bck_relationship {
         ?>
             <div class="post-relationship">
                 <p id="messages"></p>
-                <div id="relationships">
+                <div id="relationships">      
                     <?php parent::rel_get_relationship_id($rel_parent); ?>
                 </div>
                 <p id="create-yes"> Create New Relationship + </p>

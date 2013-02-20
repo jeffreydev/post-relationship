@@ -8,7 +8,9 @@ Author: 1010 Collective
 Author URI: http://the1010collective.com
 */
 
-
+/*
+ * @todo Turn Query into Shortcode with filter ability!!
+ */
 
 
     if(!defined( 'RELATIONSHIP_BASE_URL' )) {
@@ -82,7 +84,7 @@ Author URI: http://the1010collective.com
         global $wpdb, $post;
         $rel_post_id = $rel_post_id;
         $rel_post_type = $rel_post_type;
-        $rel_tables = "wp_post_relationship";
+        $rel_tables = $wpdb->prefix . "post_relationship";
 
         $rel_posts = $wpdb->get_results("SELECT * FROM $rel_tables Where post_parent_id = $rel_post_id AND post_type = '$rel_post_type'");
         $rel_post_ID = array();
