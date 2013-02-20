@@ -11,13 +11,18 @@ FEATURES INCLUDE::
 
 EXAMPLE USAGE::
     
-    add_filter('post_relationship', 'jdev_filter_relationship');
+    1.  Shortcode takes post_type parameter;
+        [get_relationship post_type="nirec_videos"]
+    
+    2.  Add Filter using post_relationship
+    
+        add_filter('post_relationship', 'jdev_filter_relationship');
         
-    function jdev_filter_relationship($html) {
+        function jdev_filter_relationship($html) {
 
-        $html = '<div>';
-        $html .= get_the_title();
-        $html .= '</div>';
+            $html = '<div>';
+            $html .= get_the_title();
+            $html .= '</div>';
 
-        return $html;
-    }
+            return $html;
+        }
