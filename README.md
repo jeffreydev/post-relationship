@@ -1,3 +1,6 @@
+<h2> Post Relationships WordPress Plugin </h2>
+Version 1.0.0
+
 <h2> Post Relationships Documentation </h2>
 The post relationships plugin allows you to create relationships between post types.  It offers a few canned outputs for quick and simple implementation.  Bellow you can see what outputs are available and how to use them along with a how to use the custom filter for complete control over your output.
 
