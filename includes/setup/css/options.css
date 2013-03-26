@@ -1,0 +1,130 @@
+
+
+/* =Fields
+-------------------------------------------------------------- */
+
+.rel .field-wrap {
+    margin: 20px 30px;
+}
+
+.rel .field-wrap label {
+    display: block;
+    text-align: left;
+    padding: 0 0 15px 0;
+    color: #acaaaa;
+    font-size: 15px;
+    text-transform: uppercase
+}
+
+ .rel .field-wrap input {
+    display: block;
+    padding: 15px;
+    width: 100%
+}
+
+.rel .field-wrap .wp-editor-wrap {
+    width: 100%;
+    display: block;
+} 
+
+.rel .field-wrap textarea {
+    width: 360px;
+    height: 200px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.rel .field-wrap input[type="checkbox"]{
+    margin: 1px 0 0 0;
+    width: 20px;
+    height: 20px;   
+    display: inline-block;
+    vertical-align: top;
+}
+
+.rel .field-wrap .quicktags-toolbar input {
+    width: auto !important;
+}
+
+
+
+.rel .submit {
+    margin: 0 20px;
+}
+
+.rel .field-wrap input[type="button"], .field-wrap input[type="submit"] {
+    width: auto;
+    font-weight: bold;
+    color: white;
+    background: url(images/upload-bg.png) repeat-x scroll left top;
+    text-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0;
+    border: none;
+    margin: 10px 0 0 0;
+}
+
+.rel .field-wrap .jdev-image-uploader {
+    display: block;
+}
+
+
+.rel .nav {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 400px;
+    width: 180px;
+    float: left;
+}
+
+
+.rel h2.relationship-title {
+    margin: 40px 10px 10px 10px;
+    font-size: 40px;
+    text-align: center;
+}
+
+.rel .rel-options h3 {
+    color: #278ab7;
+    font-size: 18px;
+    margin: 28px 10px;
+    text-align: center;
+    font-style: italic;
+}
+
+.rel h3.title { font-size: 18px; }
+.rel .tab-wrap h3 { color: #333c44; text-transform: uppercase; }
+.rel .tab-wrap div.updated, .tab-wrap div.error {
+    margin: 5px 10px 20px 10px;
+}
+			
+.rel .save-changes {
+    clear: both;
+    text-align: right;
+    height: 50px;
+    padding: 10px 15px;
+}
+
+.rel .admin-logo {
+    text-align: center;
+    margin: 20px 0;
+}
+
+
+
+.rel .checkbox label {
+    display: inline-block;
+    margin: 0 10px 0 0;
+    vertical-align: top;
+    width: auto !important;
+    font-weight: normal;
+}
+
+.rel .rel-options .checkbox {
+    background: none;
+    background: none;
+    display: inline-block;
+}
+
+.rel .rel-options {
+    text-align: center;
+}

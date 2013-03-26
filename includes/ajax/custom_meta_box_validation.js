@@ -12,10 +12,15 @@ jQuery(document).ready(function($) {
             data: {
                 action: 'ajax_get_post_types'
             },
+            beforeSend: function() {
+                $('#loading').show();
+            },
             success:function(data){
+                $('#loading').hide();
                 $('#select_cpt').html(data);
             }
         });
+       
     });
 });
 
@@ -33,7 +38,11 @@ jQuery(document).ready(function($) {
                 action: 'ajax_get_posts',
                 selected_post_type: selected_post_type
             },
+            beforeSend: function() {
+                $('#loading').show();
+            },
             success:function(data){
+                $('#loading').hide();
                 $('#cpt_options').html(data);
                 $('#create-relationship').hide();
             }
@@ -66,7 +75,11 @@ jQuery(document).ready(function($) {
                 post_parent_id: post_parent_id,
                 rel_post_type: post_type
             },
+            beforeSend: function() {
+                $('#loading').show();
+            },
             success:function(data){
+                $('#loading').hide();
                 $('#select_cpt').empty();
                 $('#cpt_options').empty();
                 $('#create-relationship').hide();
@@ -90,7 +103,11 @@ jQuery(document).ready(function($) {
                 delete_selected: delete_id,
                 post_parent_id: post_parent_id 
             },
+            beforeSend: function() {
+                $('#loading').show();
+            },
             success:function(data){
+                $('#loading').hide();
                 $('#relationships').empty();
                 $('#relationships').append(data);
                 $('#messages').text('Relationship Deleted');

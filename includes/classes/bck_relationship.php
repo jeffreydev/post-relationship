@@ -16,7 +16,17 @@ class bck_relationship {
     }
     
     
-    
+    /**
+     * Create the relationship between
+     * to post types.
+     * 
+     * @global type $wpdb
+     * @global type $post
+     * @param type $rel
+     * @param type $rel_parent_id
+     * @param type $rel_child_id
+     * @param type $rel_post_type 
+     */
     public function rel_create_relationship( $rel, $rel_parent_id, $rel_child_id, $rel_post_type) {
         // create the post relationship
         global $wpdb, $post;
@@ -31,13 +41,17 @@ class bck_relationship {
 
         $relationship_img = RELATIONSHIP_BASE_URL . 'includes/images/one_way_icon.png';
         $delete_img = RELATIONSHIP_BASE_URL . 'includes/images/delete-icon.png';
+        
+        $rel_check = $wpdb->get_row("SELECT * FROM $rel_table WHERE post_parent_id = $rel_parent_id && child_id = $rel_child_id");
 
-        $wpdb->insert($rel_table, array(
-            'relationship_type' => $rel_type,
-            'post_parent_id' => $rel_parent_id,
-            'child_id' => $rel_child_id,
-            'post_type' => $rel_post_type
-        ));
+        if(!$rel_check) {
+            $wpdb->insert($rel_table, array(
+                'relationship_type' => $rel_type,
+                'post_parent_id' => $rel_parent_id,
+                'child_id' => $rel_child_id,
+                'post_type' => $rel_post_type
+            ));
+        }
 
         $this->rel_get_relationship_id($rel_parent_id);
 
@@ -46,7 +60,14 @@ class bck_relationship {
     }
     
     
-
+    /**
+     * Get any relationship for a given post type
+     * and post id
+     * 
+     * @global type $wpdb
+     * @param type $rel_post_type
+     * @param type $rel_post_id 
+     */
     public function rel_get_relationship($rel_post_type, $rel_post_id) {
         //delete the relationship
         global $wpdb;
@@ -59,7 +80,12 @@ class bck_relationship {
     
     
     
-    
+    /**
+     * Get the relationshop ID
+     * 
+     * @global type $wpdb
+     * @param type $rel_id 
+     */
     public function rel_get_relationship_id($rel_id) {
         global $wpdb;
         

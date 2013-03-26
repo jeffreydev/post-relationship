@@ -2,14 +2,16 @@
 
 add_action( 'wp_ajax_ajax_get_post_types', 'rel_get_post_types' );
 
-function rel_get_post_types() {
-    
-        $post_types = get_post_types('','names');
+function rel_get_post_types() {;
         echo '<label>Select Post Type For Relationship</label>';
         echo '<select name="cpt_option" id="cpt-option">';
         echo '<option>Select Post Type</option>';
+        
+        $post_types = get_post_types('', 'names'); 
         foreach ($post_types as $post_type) {
-            echo '<option value="' . $post_type . '">' . $post_type . '</option>';
+            if(get_option($post_type, false ) ) {
+                echo '<option value="' . $post_type . '">' . $post_type . '</option>';
+            }
         }
         echo '</select>';
         die();  

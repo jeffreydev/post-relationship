@@ -3,14 +3,11 @@
 Plugin Name: Post Relationships
 Plugin URI: http://the1010collective.com/plugins
 Description: Used to create post to post relationships
-Version: 1.0
+Version: 1.0.0
 Author: 1010 Collective
 Author URI: http://the1010collective.com
 */
 
-/*
- * @todo Turn Query into Shortcode with filter ability!!
- */
 
 
     if(!defined( 'RELATIONSHIP_BASE_URL' )) {
@@ -27,7 +24,10 @@ Author URI: http://the1010collective.com
     /* includes */
     include_once dirname( __FILE__ ) . '/includes/classes/bck_relationships_setup.php';
     include_once dirname( __FILE__ ) . '/includes/classes/bck_relationship.php';
-    include_once dirname( __FILE__ ) . '/includes/ajax_relationship_creation.php';
+    include_once dirname( __FILE__ ) . '/includes/ajax/ajax_relationship_creation.php';
+    include_once dirname( __FILE__ ) . '/includes/classes/rel_filter.php';
+    include_once dirname( __FILE__ ) . '/includes/setup/class.Rel_Options_Fields.php';
+    include_once dirname( __FILE__ ) . '/includes/setup/class.Rel_Settings.php';
 
     
 
@@ -36,13 +36,24 @@ Author URI: http://the1010collective.com
     function rel_include_js(){
         if(is_admin()){
             wp_enqueue_script('jquery');
-            wp_enqueue_script('custom_val', RELATIONSHIP_BASE_URL . 'includes/scripts/custom_meta_box_validation.js');
+            wp_enqueue_script('custom_val', RELATIONSHIP_BASE_URL . 'includes/ajax/custom_meta_box_validation.js');
             wp_enqueue_style('custom_styles', RELATIONSHIP_BASE_URL . 'includes/styles.css');
+            wp_enqueue_style('option_styles', RELATIONSHIP_BASE_URL . 'includes/setup/css/options.css');
         }
     }
 
     add_action('admin_enqueue_scripts', 'rel_include_js');
 
+    
+    
+    /* Include frontend styles */
+    function rel_include_css(){
+        if(!is_admin()) {
+            wp_enqueue_style('post-relationship-styles', RELATIONSHIP_BASE_URL . 'includes/post-relationship.css');
+        }
+    }
+    
+    add_action('wp_enqueue_scripts', 'rel_include_css');
 
 
 
@@ -129,7 +140,7 @@ Author URI: http://the1010collective.com
         $response = jdev_altapi_request($args, $current_version);
         
         // If resosne is false, dont alter the transient
-        if( false !== $response || $current_version < $response->new_version ) {
+        if( false !== $response && $current_version < $response->new_version ) {
             $transient->response[$plugin_slug] = $response;
         }
 

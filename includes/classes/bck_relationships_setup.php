@@ -56,6 +56,7 @@ class bck_relationships_setup extends bck_relationship {
                     <p id="cpt_options"></p>
                     <p id="create-relationship">create new relationship</p>
                     <input type="text" id="rel_post_parent_id" name="rel_post_parent_id" value="<?php the_ID(); ?>" />
+                    <div id="loading">Loading...</div>
                 </div>
             </div>
         <?php

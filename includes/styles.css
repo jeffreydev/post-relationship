@@ -57,5 +57,7 @@ div.relation:last-of-type {
     padding: 5px;
 }
 
-
+#loading {
+    display: none;
+}
 
