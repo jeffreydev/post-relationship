@@ -109,7 +109,7 @@ class Rel_Settings extends Rel_Options_Fields {
                  ?>
                  <div><?php submit_button(); ?></div>
              </form>
-            <div><a href="">Learn how to use post relationships</a> </div>
+            <div><a href="http://www.jeffreydev.com/portfolio/post-relationship/" target="_blank">Learn how to use post relationships</a> </div>
         </div> <!-- end wrapp -->
     </div>
     <?php    
