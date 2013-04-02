@@ -39,7 +39,11 @@ Author URI: http://the1010collective.com
             wp_enqueue_script('custom_val', RELATIONSHIP_BASE_URL . 'includes/ajax/custom_meta_box_validation.js');
             wp_enqueue_style('custom_styles', RELATIONSHIP_BASE_URL . 'includes/styles.css');
             wp_enqueue_style('option_styles', RELATIONSHIP_BASE_URL . 'includes/setup/css/options.css');
+        
+            wp_enqueue_script('jquery-ui-core');
+            wp_enqueue_script('jquery-ui-sortable'); 
         }
+                  
     }
 
     add_action('admin_enqueue_scripts', 'rel_include_js');

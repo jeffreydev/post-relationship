@@ -22,15 +22,15 @@ class rel_filter {
      * @param type $hooked
      * @return type 
      */
-    static function jdev_get_related_posts($post_type, $output = null, $canned = true ) {
+    static function jdev_get_related_posts($rel_post_id, $post_type, $output = null, $canned = true ) {
         global $post;
         
         $rel_post_type = $post_type; // post type for query        
         self::$hook_to_run = $output;
 
         
-        //gets back post ides associated with the post type selected
-        $rel = rel_get_post_id($post->ID, $rel_post_type);
+        //gets back post id associated with the post type selected
+        $rel = rel_get_post_id($rel_post_id, $rel_post_type);
 
         // If nothing is returned, return
         if (!$rel)

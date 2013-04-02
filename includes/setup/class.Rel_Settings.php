@@ -13,26 +13,20 @@ class Rel_Settings extends Rel_Options_Fields {
     public function __construct(){
         
         // create the options panel
-        add_action('admin_menu', array( $this, 'bully_create_menu' ));
+        add_action('admin_menu', array( $this, 'rel_create_menu' ));
         
         // adding needed javascripts 
-        add_action( 'admin_menu', array($this, 'bully_include_scripts' ));
+        add_action( 'admin_menu', array($this, 'rel_include_scripts' ));
   
     }
     
     
     
     /**
-     * 
      * Include our scripts and styles
      */
-    public function bully_include_scripts() {
+    public function rel_include_scripts() {
         
-        if(isset($_GET['page'])):
-            if($_GET['page'] == 'wp-stripe-bully'):
-                wp_enqueue_style( 'wp-stripe-bully', '/' . PLUGINDIR . '/wp-stripe-bully/css/styles.css', false, '1.0' );
-            endif;
-        endif;
     }
 
 
@@ -42,7 +36,7 @@ class Rel_Settings extends Rel_Options_Fields {
      * Create the Theme Options
      * Menu Item
      */
-    public function bully_create_menu() {
+    public function rel_create_menu() {
 
         add_options_page(
                 'Post Relationships', 

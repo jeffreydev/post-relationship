@@ -100,6 +100,8 @@ class bck_relationship {
         
         $myrows = $wpdb->get_results( "SELECT * FROM $rel_table WHERE post_parent_id = $rel_id order by post_type" );
         
+        
+        $count = 2;
         foreach($myrows as $rows){
             
             $rel = $wpdb->get_results("SELECT * FROM $rel_post_table Where ID = $rows->child_id");
@@ -110,20 +112,40 @@ class bck_relationship {
                 if ($last_type != $rel->post_type) {
                     echo '<div class="rel-title">' . $rel->post_type . '</div>';                 
                 }
+
+                if($new_post_type) : echo '<div class="rel-title">' . $rel->post_type . '</div>'; endif; 
                 echo '<img src="' . $relationship_img . '" />';
                 echo $rel->post_title;
                 echo '<span id="delete-rel" value="' . $rel->ID . '">';
                 echo '<img src="' . $delete_img . '">';
                 echo '</span>';
                 echo '</div>';
-
+       
                 $last_type = $rel->post_type;
             }
         }
-       
-        
+         
     }
     
+    
+    
+    
+    
+    static function get_parent_id($post_id, $post_type) {
+        global $wpdb;
+        $child_id = $post_id;
+        $post_type = $post_type;
+        $rel_post_title_table = $wpdb->prefix . 'posts';
+        $rel_table = $wpdb->prefix . 'post_relationship';
+        
+        $parent_id = $wpdb->get_row( "SELECT post_parent_id FROM $rel_table WHERE child_id = $child_id && post_type = '$post_type'" );
+        
+        if($parent_id) {
+            foreach($parent_id as $parent_id) {
+                return $parent_id[0];
+            }
+        }
+    }
     
     
     
