@@ -45,6 +45,15 @@ default -- list of linked title
 
 3 -- Post thumbnail, title and excerpt.
 
+
 <pre lang="php" line="1">
-echo rel_filter::jdev_get_related_posts( $post_type, $output, true );
+// standard usage
+echo rel_filter::jdev_get_related_posts($post_id, 'post');
+</pre>
+
+
+<pre lang="php" line="1">
+// go back to parent leven and get all associated posts
+$parentId = bck_relationship::get_parent_id($post->ID, 'post');
+echo rel_filter::jdev_get_related_posts($parentID, 'post');
 </pre>
