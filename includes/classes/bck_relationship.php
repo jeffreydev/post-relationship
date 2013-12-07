@@ -91,37 +91,49 @@ class bck_relationship {
         
         $rel_table = $wpdb->prefix . 'post_relationship';
         $rel_post_table = $wpdb->prefix . 'posts';
-        
-        $relationship_img = RELATIONSHIP_BASE_URL . 'includes/images/one_way_icon.png';
+
         $delete_img = RELATIONSHIP_BASE_URL . 'includes/images/delete-icon.png';
         
         $rel_id = $rel_id;
         $last_type = null;
         
         $myrows = $wpdb->get_results( "SELECT * FROM $rel_table WHERE post_parent_id = $rel_id order by post_type" );
-        
-        
         $count = 2;
+        echo '<div class="rel-title">Authors</div>';
         foreach($myrows as $rows){
             
-            $rel = $wpdb->get_results("SELECT * FROM $rel_post_table Where ID = $rows->child_id");
+            //$rel = $wpdb->get_results("SELECT * FROM $rel_post_table Where ID = $rows->child_id");
             
+//            foreach ($rel as $rel) {
+//                echo '<div class="relation">';
+//                if ($last_type != $rel->post_type) {
+//                    echo '<div class="rel-title">' . $rel->post_type . '</div>';                 
+//                }
+//
+//                if($new_post_type) : echo '<div class="rel-title">' . $rel->post_type . '</div>'; endif; 
+//                echo '<img src="' . $relationship_img . '" />';
+//                echo $rel->post_title;
+//                echo '<span id="delete-rel" value="' . $rel->ID . '">';
+//                echo '<img src="' . $delete_img . '">';
+//                echo '</span>';
+//                echo '</div>';
+//                
+//       
+//                $last_type = $rel->post_type;
+//            }
             
-            foreach ($rel as $rel) {
+            // If we have authors
+            $auth = $wpdb->get_results("SELECT * FROM $wpdb->users WHERE ID = $rows->child_id");
+            
+            foreach ($auth as $auth) {
                 echo '<div class="relation">';
-                if ($last_type != $rel->post_type) {
-                    echo '<div class="rel-title">' . $rel->post_type . '</div>';                 
-                }
-
-                if($new_post_type) : echo '<div class="rel-title">' . $rel->post_type . '</div>'; endif; 
-                echo '<img src="' . $relationship_img . '" />';
-                echo $rel->post_title;
-                echo '<span id="delete-rel" value="' . $rel->ID . '">';
+                
+                echo '&rarr; &nbsp; ';
+                echo $auth->user_nicename;
+                echo '<span id="delete-rel" value="' . $auth->ID . '">';
                 echo '<img src="' . $delete_img . '">';
                 echo '</span>';
                 echo '</div>';
-       
-                $last_type = $rel->post_type;
             }
         }
          

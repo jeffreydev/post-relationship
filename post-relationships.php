@@ -1,11 +1,11 @@
 <?php
 /**
 Plugin Name: Post Relationships
-Plugin URI: http://the1010collective.com/plugins
+Plugin URI:  http://jeffreydev.com/plugins
 Description: Used to create post to post relationships
 Version: 1.0.0
-Author: 1010 Collective
-Author URI: http://the1010collective.com
+Author: Jeffrey Clark
+Author URI: http://jeffreydev.com
 */
 
 
@@ -119,82 +119,4 @@ Author URI: http://the1010collective.com
     
     
     
-    // UPDATE
     
-    // Update Ability
-    add_filter('pre_set_site_transient_update_plugins', 'jdev_altapi_check' );
-    
-    function jdev_altapi_check( $transient ) {
-        
-        // check if the transient has checked info        
-        if( empty( $transient->checked ) )
-            return $transient;
-        
-        $plugin_slug = plugin_basename(__file__);
-        $current_version =  $transient->checked[$plugin_slug];
-               
-        // Post data to send to our API
-        $args = array(
-            'action' => 'update-check',
-            'plugin_name' => $plugin_slug,
-            'version' => $transient->checked[$plugin_slug],
-        );
-
-        // Send a request checking for an update
-        $response = jdev_altapi_request($args, $current_version);
-        
-        // If resosne is false, dont alter the transient
-        if( false !== $response && $current_version < $response->new_version ) {
-            $transient->response[$plugin_slug] = $response;
-        }
-
-        return $transient;
-        
-    }
-    
-    
-    
-    
-    function jdev_altapi_request( $args){
-        
-        // Send Request      
-        $request = wp_remote_post(RELATIONSHIP_UPDATE_URL, array( 'body' => $args) );
-        
-        // Make sure the request was successful
-        if( is_wp_error( $request ) || wp_remote_retrieve_response_code($request) != 200 ) {
-            return false;      
-        }
-
-   
-        // Read server response, which should be an object
-        $response = unserialize( wp_remote_retrieve_body( $request ) );
-
-        if( is_object( $response ) ) {
-            return $response;
-        } else {
-            return false;
-        }
-        
-    }
-    
-    
-    add_filter( 'plugins_api', 'jdev_altapi_info' );
-    
-    function jdev_altapi_info( $args ){
-        
-        $plugin_slug = plugin_basename(__file__);
-        // Post data to send to our API
-        $args = array(
-            'action' => 'plugin_information',
-            'plugin_name' => $plugin_slug,
-        );
-        
-        // Send request for detailed information
-        $response = jdev_altapi_request( $args );
-        
-        // Send request for information
-        $request = wp_remote_post( RELATIONSHIP_UPDATE_URL, array( 'body' => $args ) );
-        
-        return $response;
-        
-    }

@@ -9,7 +9,16 @@ include 'bck_relationship.php';
 class bck_relationships_setup extends bck_relationship {
 
         public function __construct(){
+            
+//            foreach($post_types as $selected_type) {
+//                if($is_admin() & $post_type == $selected_type & get_option($selected_type, false ) ){
+//                    echo $selected_type;
+//                }
+//            }
+            
             add_action( 'add_meta_boxes', array($this, 'rel_add_custom_box' ));
+
+            //add_action( 'add_meta_boxes', array($this, 'rel_add_custom_box' ));
             //   add_action( 'save_post', array($this, 'rel_save_post_relationship' ));
         }
 
@@ -21,18 +30,22 @@ class bck_relationships_setup extends bck_relationship {
         * meta box to our cpt block; 
         */
         public function rel_add_custom_box() {
-            //foreach( array() as $page ) {
-            $page = '';
-                add_meta_box( 
-                        'Post Relationships',
-                        __( 'Create A Post Relationship', 'bckspace' ),
-                        array($this, 'rel_relationship_content'),
-                        $page,
-                        'side',
-                        'default'
-                    );
-            //}
-        }
+            global $post;
+            $post_type = get_post_type($post);
+            $selected = get_option($post_type, false);
+
+            if($selected) { 
+                $page = '';
+                    add_meta_box( 
+                            'Post Relationships',
+                            __( 'Create A Post Relationship', 'bckspace' ),
+                            array($this, 'rel_relationship_content'),
+                            $page,
+                            'side',
+                            'default'
+                        );
+                }
+            }
 
 
 
@@ -44,6 +57,9 @@ class bck_relationships_setup extends bck_relationship {
         public function rel_relationship_content() {
             global $post;
             $rel_parent = $post->ID;
+            
+            
+            
         ?>
             <div class="post-relationship">
                 <p id="messages"></p>
